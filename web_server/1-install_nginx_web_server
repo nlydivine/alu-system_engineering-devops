@@ -1,0 +1,22 @@
+nano 1-install_nginx_web_server
+#!/usr/bin/env bash
+# Install nginx web server
+
+apt-get update -y
+apt-get install -y nginx
+echo "Holberton School for the win!" > /var/www/html/index.html
+service nginx restart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
