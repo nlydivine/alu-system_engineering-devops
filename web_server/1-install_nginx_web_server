@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
-# Update the package list to make sure we have the latest information
+# Update package lists
 apt-get update -y
 
-# Install nginx web server package without asking for confirmation
+# Install nginx
 apt-get install -y nginx
 
-# Create a simple HTML page in the default web root with the text we want
+# Create custom index.html with required string
 echo "Holberton School for the win!" > /var/www/html/index.html
 
-# Start the nginx service (without using systemctl)
+# Start nginx service (using service instead of systemctl)
 service nginx start
-
-
-
-
-
