@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Configure Nginx with a 301 redirection
+
+apt-get update
+apt-get install -y nginx
+
+# Main page
+echo "Holberton School for the win!" > /var/www/html/index.html
+
+# Backup config
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+
+# Safe server block with redirection
+cat > /etc/nginx/sites-available/default <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}
+EOF
+
+# Restart Nginx
+service nginx restart
+
