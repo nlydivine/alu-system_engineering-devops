@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
-# Install Nginx and make it listen on port 80
+# Configure Nginx to listen on port 80 and serve "Hello Holberton"
 
-# Update package index
-apt-get update
+# 1. Stop any process using port 80
+fuser -k 80/tcp 2>/dev/null || true
 
-# Install Nginx if not installed
+# 2. Install nginx if missing
+apt-get update -y
 apt-get install -y nginx
 
-# Ensure Nginx is started
-service nginx start
+# 3. Ensure index.html exists
+echo "Hello Holberton" > /var/www/html/index.html
 
-# Optional: enable it to start on boot
-systemctl enable nginx
+# 4. Start nginx
+nginx -g 'daemon off;'
 
