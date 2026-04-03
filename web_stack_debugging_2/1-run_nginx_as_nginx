@@ -1,23 +1,9 @@
 #!/usr/bin/env bash
-# Configure Nginx to run as nginx user and listen on port 8080
-
-# Install nginx if not present
-apt-get update -y
-apt-get install -y nginx
-
-# Stop any process using port 8080
-fuser -k 8080/tcp 2>/dev/null || true
-
-# Change Nginx config to listen on 8080
-sed -i 's/listen 80 default_server;/listen 8080;/' /etc/nginx/sites-available/default
-sed -i 's/listen \[::\]:80 default_server;/listen [::]:8080;/' /etc/nginx/sites-available/default
-
-# Set Nginx to run as user 'nginx' (modify /etc/nginx/nginx.conf)
-sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
-
-# Ensure html exists
-echo "Hello Holberton" > /var/www/html/index.html
-
-# Start nginx as daemon
-nginx -g 'daemon off;'
+# nginx must be running as nginx user
+# nginx must be listening on all active IPs on port 8080
+pkill -f apache2
+chmod 644 /etc/nginx/nginx.conf
+sed -i 's/80/8080 default_server/g' /etc/nginx/sites-available/default
+sed -i '1 i user nginx;' /etc/nginx/nginx.conf
+sudo -u nginx service nginx restart
 
