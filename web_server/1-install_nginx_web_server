@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-# Install and configure Nginx web server
-
-apt-get update
+# Installs and configures Nginx to return Holberton School at root
+apt-get update -y
 apt-get install -y nginx
 
-echo "Holberton School for the win!" > /var/www/html/index.html
+echo "Holberton School" > /var/www/html/index.html
 
 service nginx start
-
